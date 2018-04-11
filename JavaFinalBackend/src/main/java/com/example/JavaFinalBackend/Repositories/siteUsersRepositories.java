@@ -45,8 +45,8 @@ public class siteUsersRepositories {
                             "VALUES (?,?,?)" +
                             "RETURNING id");
             preparedStatement.setString(1, name);
-            preparedStatement.setString(4, password);
-            preparedStatement.setString(6, sessionKey);
+            preparedStatement.setString(2, password);
+            preparedStatement.setString(3, sessionKey);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
@@ -83,8 +83,9 @@ public class siteUsersRepositories {
         try {
             Connection conn = GetConnect.get();
             PreparedStatement preparedStatement = conn.prepareStatement(
-                    "UPDATE siteUsers SET sessionKey = ? WHERE name = ? and password = ? returning *"
+                    "UPDATE siteUsers SET sessionKey = ? WHERE name = ? and password = ? RETURNING *;"
             );
+            System.out.println(password);
             preparedStatement.setString(1, sessionKey);
             preparedStatement.setString(2, name);
             preparedStatement.setString(3, password);
@@ -97,6 +98,7 @@ public class siteUsersRepositories {
                     resultSet.getString("sessionKey"));
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
             return null;
         }
     }

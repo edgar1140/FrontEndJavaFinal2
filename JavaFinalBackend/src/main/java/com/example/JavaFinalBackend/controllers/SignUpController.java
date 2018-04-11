@@ -32,7 +32,7 @@ public class SignUpController {
     }
 
     @CrossOrigin(allowedHeaders="*",allowCredentials="true")
-    @PostMapping("/SignUp")
+    @PostMapping("/signup")
     public Signup Signup(@RequestBody Signup newsiteUsers) {
         String hashedPassword = BCrypt.hashpw(newsiteUsers.password, salt);
 
@@ -46,7 +46,7 @@ public class SignUpController {
         if (newsiteUsers != null) {
             return newsiteUsers;
         } else {
-            System.out.println("error* sorry please try again");
+            System.out.println("sorry please try again");
             return null;
         }
     }

@@ -18,10 +18,11 @@ public class LoginController {
     @Value("${app.salt}")
     private String salt;
     @CrossOrigin()
-    @PostMapping("/Login/")
+    @PostMapping("/login")
     public siteUsers login(@RequestBody Login isUser) throws SQLException {
-        System.out.println(siteUsers.name);
+        System.out.println(isUser.name);
         String hashedPassword = BCrypt.hashpw(isUser.password, salt);
+        System.out.println(hashedPassword);
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         String sessionKey = "";
         Random random = new Random();
@@ -30,7 +31,7 @@ public class LoginController {
             char c = alphabet.charAt(random.nextInt(26));
             sessionKey += c;
         }
-        siteUsers newsiteUsers = siteUsersRepositories.issiteUsers(siteUsers.name, hashedPassword, sessionKey);
+        siteUsers newsiteUsers = siteUsersRepositories.issiteUsers(sessionKey, isUser.name, hashedPassword);
         if (newsiteUsers != null) {
             return newsiteUsers;
         } else {

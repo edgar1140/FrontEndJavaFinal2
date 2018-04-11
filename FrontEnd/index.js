@@ -103,11 +103,60 @@ function enableButton() {
     }
 }
 
+function game(games) {
+    var gameStructure = games
+        .map(function(game) {
+            return [
+                // "div class='row'",
+                "<div class='SoccerTables' col-lg-6 col-md-8 col-sm-5",
+                "<tr id='all-games' class='card text-white bg-dark mb-3' style='max-width: 20rem;'>",
+                '<td>' +
+                    '<img src=' +
+                    game.home_img_url +
+                    '>' +
+                    '<p> Team Name: ' +
+                    game.home_team +
+                    ' </p>' +
+                    '<p> Goals: ' +
+                    game.home_score +
+                    '</p>' +
+                    '</td>',
+                '<td>' +
+                    '<img src=' +
+                    game.away_img_url +
+                    '>' +
+                    '<p> Team Name: ' +
+                    game.away_team +
+                    ' </p>' +
+                    '<p> Goals: ' +
+                    game.away_score +
+                    '</p>' +
+                    '</td>' +
+                    '</tr>',
+                '</div>',
+                '</div>'
+            ].join('');
+        })
+        .join('');
+
+    return '<h3>Matches:</h3>' + '<table>' + gameStructure + '</table>';
+}
+
+function initializeExistingGamesView(games) {
+    $('#games').html(game(games));
+}
+function showGames() {
+    fetch('http://localhost:8080/games')
+        .then(response => response.json())
+        .then(initializeExistingGamesView);
+}
+
 function main() {
     addPasswordValidation();
     addemailValidation();
     addnameValidation();
     addLastNameValidation();
     enableButton();
+    showGames();
 }
 $(main);

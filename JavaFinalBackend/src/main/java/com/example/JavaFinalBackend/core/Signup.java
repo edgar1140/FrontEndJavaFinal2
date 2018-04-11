@@ -6,4 +6,15 @@ public class Signup {
     public String sessionKey;
 
 
+    public Signup () {
+
+    }
+
+    public Signup (String name, String password, String sessionKey) {
+        this.name = name;
+        this.password = password;
+        this.sessionKey = sessionKey;
+    }
+
+
 }

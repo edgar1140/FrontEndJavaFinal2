@@ -29,15 +29,19 @@ public class Games {
     public static List<Game> all() {
         try{
             Connection c = connect();
-            PreparedStatement st = c.prepareStatement("SELECT * FROM games;");
+            PreparedStatement st = c.prepareStatement("SELECT * FROM game_summaries");
             ResultSet rs = st.executeQuery();
             ArrayList<Game> allgames = new ArrayList<Game>();
             while (rs.next()) {
                 allgames.add(new Game(
                         rs.getInt("home_id"),
+                        rs.getString("home_team"),
                         rs.getInt("home_score"),
+                        rs.getString("home_img_url"),
                         rs.getInt("away_id"),
-                        rs.getInt("away_score")
+                        rs.getString("away_team"),
+                        rs.getInt("away_score"),
+                        rs.getString("away_img_url")
                 ));
             }
             return allgames;
