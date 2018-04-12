@@ -1,28 +1,26 @@
 $('#signup-form').on('submit', function(event) {
+    console.log('AHHHHHHHHH real monsters');
     event.preventDefault();
     $.ajax({
         url: 'http://localhost:8080/signup',
         method: 'POST',
         crossDomain: true,
         contentType: 'application/json',
-        mimeType: 'application/json',
+        mimetype: 'application/json',
         data: JSON.stringify({
-            name: $('#name-input').val(),
+            username: $('#name-input').val(),
             password: $('#password-input').val()
         })
     })
-        .then(function successulSignup(data) {
-            console.log(data);
-            alert('It Worked');
+        .then(function successulSignup(response) {
+            console.log(response.sessionKey);
         })
         .catch(function unsuccessfulSignup(response) {
-            console.log(response.status);
-            console.log(response.response.JSON);
+            console.log('Unable to sign up');
+            console.log(response.statusText);
         });
 });
 
-function main() {
-    // postServer();
-}
+function main() {}
 
 $(main);

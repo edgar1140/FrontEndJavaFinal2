@@ -1,6 +1,6 @@
 package com.example.JavaFinalBackend.Repositories;
 
-import com.example.JavaFinalBackend.core.siteUsers;
+import com.example.JavaFinalBackend.core.SiteUser;
 import com.example.JavaFinalBackend.db.GetConnect;
 
 import java.sql.Connection;
@@ -9,19 +9,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class siteUsersRepositories {
+public class SiteUsersRepository {
 
-    public static ArrayList<siteUsers> allsiteUsers() {
+    public static ArrayList<SiteUser> allsiteUsers() {
 
         try {
             Connection conn = GetConnect.get();
             PreparedStatement preparedStatement = conn.prepareStatement(
                     "SELECT * FROM siteUsers");
             ResultSet resultSet = preparedStatement.executeQuery();
-            ArrayList<siteUsers> allsiteUsers = new ArrayList<siteUsers>();
+            ArrayList<SiteUser> allsiteUsers = new ArrayList<SiteUser>();
             while (resultSet.next()) {
                 allsiteUsers.add(new
-                        siteUsers(resultSet.getInt("id"),
+                        SiteUser(resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getString("password"),
                         resultSet.getString("sessionKey")));
@@ -36,39 +36,19 @@ public class siteUsersRepositories {
         }
     }
 
-    public static siteUsers insertsiteUsers(String name, String password, String sessionKey) {
+    public static SiteUser insertsiteUsers(String name, String passwordHash, String sessionKey) {
         try {
             Connection conn = GetConnect.get();
             PreparedStatement preparedStatement = conn.prepareStatement(
-                    "INSERT INTO siteUsers (" +
-                            "name, password, sessionKey) " +
-                            "VALUES (?,?,?)" +
-                            "RETURNING id");
+                    "INSERT INTO siteUsers(name, password, sessionKey) VALUES (?, ?, ?) RETURNING *");
             preparedStatement.setString(1, name);
-            preparedStatement.setString(2, password);
+            preparedStatement.setString(2, passwordHash);
             preparedStatement.setString(3, sessionKey);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            conn.close();
-            return new siteUsers(resultSet.getInt("id"), name, password, sessionKey);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
-
-    public static siteUsers deleteSessionKey(Integer id) {
-        try {
-            Connection conn = GetConnect.get();
-            PreparedStatement preparedStatement = conn.prepareStatement(
-                    "UPDATE siteUsers SET sessionKey = null WHERE id = ? RETURNING *");
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
-            conn.close();
-            return new
-                    siteUsers(resultSet.getInt("id"),
+            return new SiteUser(
+                    resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("password"),
                     resultSet.getString("sessionKey"));
@@ -78,12 +58,32 @@ public class siteUsersRepositories {
         }
     }
 
-    public static siteUsers issiteUsers(String sessionKey, String name, String password) {
+    public static SiteUser deleteSessionKey(Integer id) {
+        try {
+            Connection conn = GetConnect.get();
+            PreparedStatement preparedStatement = conn.prepareStatement(
+                    "UPDATE siteUsers SET sessionKey = null WHERE id = ? RETURNING *");
+            preparedStatement.setInt(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            resultSet.next();
+            conn.close();
+            return new
+                    SiteUser(resultSet.getInt("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("password"),
+                    resultSet.getString("sessionKey"));
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+
+    public static SiteUser issiteUsers(String sessionKey, String name, String password) {
 
         try {
             Connection conn = GetConnect.get();
             PreparedStatement preparedStatement = conn.prepareStatement(
-                    "UPDATE siteUsers SET sessionKey = ? WHERE name = ? and password = ? RETURNING *;"
+                    "UPDATE siteUsers SET sessionKey = ? WHERE name = ? and password = ? RETURNING *"
             );
             System.out.println(password);
             preparedStatement.setString(1, sessionKey);
@@ -92,7 +92,7 @@ public class siteUsersRepositories {
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             conn.close();
-            return new siteUsers(resultSet.getInt("id"),
+            return new SiteUser(resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("password"),
                     resultSet.getString("sessionKey"));

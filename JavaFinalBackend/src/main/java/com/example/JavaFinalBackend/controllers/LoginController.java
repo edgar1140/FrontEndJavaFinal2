@@ -1,8 +1,10 @@
 package com.example.JavaFinalBackend.controllers;
 
-import com.example.JavaFinalBackend.Repositories.siteUsersRepositories;
+import com.example.JavaFinalBackend.Repositories.SiteUsersRepository;
 import com.example.JavaFinalBackend.core.Login;
-import com.example.JavaFinalBackend.core.siteUsers;
+import com.example.JavaFinalBackend.core.SiteUser;
+import com.example.JavaFinalBackend.dto.LoginRequest;
+import com.example.JavaFinalBackend.dto.LoginResponse;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,9 +21,9 @@ public class LoginController {
     private String salt;
     @CrossOrigin()
     @PostMapping("/login")
-    public siteUsers login(@RequestBody Login isUser) throws SQLException {
-        System.out.println(isUser.name);
-        String hashedPassword = BCrypt.hashpw(isUser.password, salt);
+    public LoginResponse login(@RequestBody LoginRequest r) throws SQLException {
+        System.out.println(r.username);
+        String hashedPassword = BCrypt.hashpw(r.password, salt);
         System.out.println(hashedPassword);
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         String sessionKey = "";
@@ -31,9 +33,9 @@ public class LoginController {
             char c = alphabet.charAt(random.nextInt(26));
             sessionKey += c;
         }
-        siteUsers newsiteUsers = siteUsersRepositories.issiteUsers(sessionKey, isUser.name, hashedPassword);
-        if (newsiteUsers != null) {
-            return newsiteUsers;
+        SiteUser newsiteUser = SiteUsersRepository.insertsiteUsers(sessionKey, r.username, hashedPassword);
+        if (newsiteUser != null) {
+            return new LoginResponse(sessionKey);
         } else {
             System.out.println("JSON IS WRONG");
             return null;

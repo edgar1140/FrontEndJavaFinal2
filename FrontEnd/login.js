@@ -20,8 +20,6 @@ function getServer() {
     });
 }
 
-function main() {
-    getServer();
-}
+function main() {}
 
 $(main);

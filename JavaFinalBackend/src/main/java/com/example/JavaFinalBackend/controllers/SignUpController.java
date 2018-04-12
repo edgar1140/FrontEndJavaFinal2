@@ -1,8 +1,9 @@
 package com.example.JavaFinalBackend.controllers;
 
-import com.example.JavaFinalBackend.Repositories.siteUsersRepositories;
-import com.example.JavaFinalBackend.core.Signup;
-import com.example.JavaFinalBackend.core.siteUsers;
+import com.example.JavaFinalBackend.Repositories.SiteUsersRepository;
+import com.example.JavaFinalBackend.core.SiteUser;
+import com.example.JavaFinalBackend.dto.SignUpRequest;
+import com.example.JavaFinalBackend.dto.SignUpResponse;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,20 +34,17 @@ public class SignUpController {
 
     @CrossOrigin(allowedHeaders="*",allowCredentials="true")
     @PostMapping("/signup")
-    public Signup Signup(@RequestBody Signup newsiteUsers) {
-        String hashedPassword = BCrypt.hashpw(newsiteUsers.password, salt);
-
+    public SignUpResponse Signup(@RequestBody SignUpRequest r) {
+        System.out.println(r.username);
+        String hashedPassword = BCrypt.hashpw(r.password, salt);
         String sessionKey = createSessionKey();
-
-        siteUsers newuser = siteUsersRepositories.insertsiteUsers(
-                newsiteUsers.name,
+        SiteUser newuser = SiteUsersRepository.insertsiteUsers(
+                r.username,
                 hashedPassword,
                 sessionKey);
-
-        if (newsiteUsers != null) {
-            return newsiteUsers;
+        if (newuser != null) {
+            return new SignUpResponse(sessionKey);
         } else {
-            System.out.println("sorry please try again");
             return null;
         }
     }

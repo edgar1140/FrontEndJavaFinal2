@@ -1,12 +1,12 @@
 package com.example.JavaFinalBackend.core;
 
-public class siteUsers {
+public class SiteUser {
     public Integer id;
     public static String name;
     public String password;
     public String sessionKey;
 
-    public siteUsers(Integer id, String name, String password, String sessionKey) {
+    public SiteUser(Integer id, String name, String password, String sessionKey) {
 
         this.id = id;
         this.name = name;

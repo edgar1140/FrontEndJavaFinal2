@@ -8,52 +8,56 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <!-- <link href="/static/fontawesome/fontawesome-all.css" rel="stylesheet"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">La Champions League</a>
-            <i class="fal fa-futbol"></i>
+
+<body>
+    <center>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">La Champions League</a>
+                    <i class="fal fa-futbol"></i>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active">
+                        <a href="file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/index.html">Home</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="#">
+                            <span class="glyphicon glyphicon-user"></span> Sign Up</a>
+                    </li>
+                    <li>
+                        <a href="file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/login.html">
+                            <span class="glyphicon glyphicon-log-in"></span> Login</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <form id="signup-form">
+                <fieldset>
+                    <h1>Sign Up</h1>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Name</label>
+                        <input type="text" id="name-input" placeholder="Enter Name" name="Name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Password</label>
+                        <input type="password" id="password-input" placeholder="Enter password" name="password" required>
+                    </div>
+                </fieldset>
+                <button type="submit" class="signupbtn btn btn-lg">Sign Up</button>
+            </form>
+
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active">
-                <a href="file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/index.html">Home</a>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a href="#">
-                    <span class="glyphicon glyphicon-user"></span> Sign Up</a>
-            </li>
-            <li>
-                <a href="file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/login.html">
-                    <span class="glyphicon glyphicon-log-in"></span> Login</a>
-            </li>
-        </ul>
-    </div>
-</nav>
-
-<div class="container">
-    <form id="signup-form">
-        <fieldset>
-            <h1>Sign Up</h1>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Name</label>
-                <input type="text" id="name-input" placeholder="Enter Name" name="Name" required>
-            </div>
-            <div class="form-group">
-                <label for="exampleInputEmail1">Password</label>
-                <input type="password" id="password-input" placeholder="Enter password" name="password" required>
-            </div>
-            <button type="submit" class="signupbtn btn btn-lg">Sign Up</button>
-            <a type="submit" class="loginbtn btn btn-lg" href="">Login</a>
-        </fieldset>
-    </form>
-
-</div>
-<!-- <script src="https://unpkg.com/jquery"></script> -->
-<script src="signup.js"></script>
+    </center>
 </body>
+<script src="https://unpkg.com/jquery"></script>
+<script src="signup.js"></script>
+
 
 </html>
