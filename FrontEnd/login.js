@@ -12,6 +12,7 @@ function getServer() {
                 console.log(data.key);
                 window.localStorage.setItem('key', data.key);
                 window.location = 'page.html?user=' + $('#name-input').val();
+                window.location.replace('./index.html');
             })
             .catch(function unsuccessfulLogin(response) {
                 console.log(response.status);

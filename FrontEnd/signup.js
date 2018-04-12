@@ -1,5 +1,4 @@
 $('#signup-form').on('submit', function(event) {
-    console.log('AHHHHHHHHH real monsters');
     event.preventDefault();
     $.ajax({
         url: 'http://localhost:8080/signup',
@@ -14,6 +13,7 @@ $('#signup-form').on('submit', function(event) {
     })
         .then(function successulSignup(response) {
             console.log(response.sessionKey);
+            window.location.replace('./index.html');
         })
         .catch(function unsuccessfulSignup(response) {
             console.log('Unable to sign up');
