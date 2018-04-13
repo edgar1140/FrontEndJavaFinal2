@@ -44,7 +44,6 @@ public class SiteUsersRepository {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, passwordHash);
             preparedStatement.setString(3, sessionKey);
-
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
             return new SiteUser(
@@ -79,23 +78,24 @@ public class SiteUsersRepository {
     }
 
     public static SiteUser issiteUsers(String sessionKey, String name, String password) {
-
         try {
             Connection conn = GetConnect.get();
-            PreparedStatement preparedStatement = conn.prepareStatement(
-                    "UPDATE siteUsers SET sessionKey = ? WHERE name = ? and password = ? RETURNING *"
-            );
+            PreparedStatement preparedStatement = conn.prepareStatement("UPDATE siteUsers SET sessionKey = ? WHERE name = ? AND password = ? RETURNING *");
+            System.out.println(sessionKey);
+            System.out.println(name);
             System.out.println(password);
             preparedStatement.setString(1, sessionKey);
             preparedStatement.setString(2, name);
             preparedStatement.setString(3, password);
             ResultSet resultSet = preparedStatement.executeQuery();
             resultSet.next();
-            conn.close();
-            return new SiteUser(resultSet.getInt("id"),
+            SiteUser siteuser = new SiteUser(
+                    resultSet.getInt("id"),
                     resultSet.getString("name"),
                     resultSet.getString("password"),
-                    resultSet.getString("sessionKey"));
+                    resultSet.getString("sessionKey")
+            );
+            return siteuser;
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());

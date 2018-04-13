@@ -22,9 +22,9 @@ public class LoginController {
     @CrossOrigin()
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest r) throws SQLException {
-        System.out.println(r.username);
+//        System.out.println(r.username);
         String hashedPassword = BCrypt.hashpw(r.password, salt);
-        System.out.println(hashedPassword);
+//        System.out.println(hashedPassword);
         String alphabet = "abcdefghijklmnopqrstuvwxyz";
         String sessionKey = "";
         Random random = new Random();
@@ -33,7 +33,7 @@ public class LoginController {
             char c = alphabet.charAt(random.nextInt(26));
             sessionKey += c;
         }
-        SiteUser newsiteUser = SiteUsersRepository.insertsiteUsers(sessionKey, r.username, hashedPassword);
+        SiteUser newsiteUser = SiteUsersRepository.issiteUsers(sessionKey,r.username,hashedPassword);
         if (newsiteUser != null) {
             return new LoginResponse(sessionKey);
         } else {

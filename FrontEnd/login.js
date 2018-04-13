@@ -1,26 +1,38 @@
 function getServer() {
     $('#login-form').on('submit', function(event) {
         event.preventDefault();
-        $.post(
-            'http://localhost:8080/login',
-            JSON.stringify({
-                username: $('#name-input').val(),
-                password: $('#password-input').val()
+        var username = $('#name-input').val();
+        var password = $('#password-input').val();
+        fetch('http://localhost:8080/login', {
+            method: 'post',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                username: username,
+                password: password
             })
-        )
-            .then(function successfulLogin(data) {
+        })
+            .then(function successfulLogin(response) {
+                return response.json();
+            })
+            .then(function(data) {
                 console.log(data.key);
-                window.localStorage.setItem('key', data.key);
-                window.location = 'page.html?user=' + $('#name-input').val();
-                window.location.replace('./index.html');
+                window.localStorage.setItem('id', data.id);
+                window.localStorage.setItem('name', data.name);
+                window.localStorage.setItem('sessionKey', data.sessionKey);
+                window.location = './index.html';
             })
-            .catch(function unsuccessfulLogin(response) {
-                console.log(response.status);
-                console.log(response.response.JSON);
+            .catch(function unsuccessfulLogin(err) {
+                // bad user/pw
+                console.log(err);
             });
     });
 }
 
-function main() {}
+function main() {
+    getServer();
+}
 
 $(main);

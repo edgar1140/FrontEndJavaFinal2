@@ -102,9 +102,63 @@ function showGames() {
 }
 
 function main() {
-    addPasswordValidation();
-    addnameValidation();
-    enableButton();
-    showGames();
+    var key = window.localStorage.getItem('sessionKey');
+    if (key) {
+        $.ajax({
+            url: 'http://localhost:8080/account/' + key,
+            method: 'GET',
+            crossDomain: true,
+            success: function(response) {
+                console.log(response);
+                window.localStorage.setItem('id', response.id);
+                window.localStorage.setItem('name', response.name);
+                addPasswordValidation();
+                addnameValidation();
+                enableButton();
+                showGames();
+            },
+            error: function() {
+                console.log('invalid key');
+                console.log(arguments);
+                window.localStorage.removeItem('sessionKey');
+                window.location = 'signup.html';
+            }
+        });
+    } else {
+        window.location = 'signup.html';
+    }
+    $('#logout').on('click', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url:
+                'http://localhost:8080/logout/' +
+                window.localStorage.getItem('id'),
+            type: 'DELETE',
+            crossDomain: true,
+            success: function(result) {
+                window.localStorage.removeItem('sessionKey');
+                window.localStorage.removeItem('username');
+                window.location.replace(
+                    'file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/signup.html'
+                );
+            }
+        });
+    });
+
+    $('#delete').on('click', function(event) {
+        event.preventDefault();
+        $.ajax({
+            url:
+                'http://localhost:8080/delete/' +
+                window.localStorage.getItem('id'),
+            type: 'DELETE',
+            crossDomain: true,
+            success: function(result) {
+                window.location.replace(
+                    'file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/signup.html'
+                );
+            }
+        });
+    });
 }
 $(main);

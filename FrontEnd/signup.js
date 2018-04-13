@@ -13,6 +13,7 @@ $('#signup-form').on('submit', function(event) {
     })
         .then(function successulSignup(response) {
             console.log(response.sessionKey);
+            window.localStorage.setItem('sessionKey', response.sessionKey);
             window.location.replace('./index.html');
         })
         .catch(function unsuccessfulSignup(response) {

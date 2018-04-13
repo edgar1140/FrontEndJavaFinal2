@@ -35,7 +35,7 @@ public class SignUpController {
     @CrossOrigin(allowedHeaders="*",allowCredentials="true")
     @PostMapping("/signup")
     public SignUpResponse Signup(@RequestBody SignUpRequest r) {
-        System.out.println(r.username);
+//        System.out.println(r.username);
         String hashedPassword = BCrypt.hashpw(r.password, salt);
         String sessionKey = createSessionKey();
         SiteUser newuser = SiteUsersRepository.insertsiteUsers(
