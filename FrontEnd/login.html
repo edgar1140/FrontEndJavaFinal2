@@ -15,13 +15,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="#">La Champions League</a>
-            <i class="fal fa-futbol"></i>
         </div>
-        <ul class="nav navbar-nav">
-            <li class="active">
-                <a href="file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/index.html">Home</a>
-            </li>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <a href="file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/signup.html">
@@ -38,20 +32,25 @@
 <body>
     <center>
         <div class="container">
-            <form id="login-form">
-                <fieldset>
-                    <h1>Log In</h1>
-                    <div class="form-group">
-                        <label for="exampleInputUsername1">Name</label>
-                        <input type="text" id="name-input" placeholder="Enter name" name="name">
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputPassword1">Password</label>
-                        <input type="password" id="password-input" placeholder="Enter password" name="password">
-                    </div>
-                    <button type="submit" class="loginbtn btn btn-lg">Login</button>
-                </fieldset>
-            </form>
+            <div class="row">
+                <div class="col-lg-6">
+                    <form id="login-form">
+                        <fieldset>
+                            <h1>Log In</h1>
+                            <div class="form-group">
+                                <label for="exampleInputUsername1">Name</label>
+                                <input type="text" id="name-input" placeholder="Enter name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputPassword1">Password</label>
+                                <input type="password" id="password-input" placeholder="Enter password" name="password">
+                            </div>
+                            <button type="submit" class="loginbtn btn btn-lg">Login</button>
+                        </fieldset>
+                    </form>
+
+                </div>
+            </div>
         </div>
     </center>
     <script src="https://unpkg.com/jquery"></script>

@@ -27,6 +27,7 @@ function getServer() {
             .catch(function unsuccessfulLogin(err) {
                 // bad user/pw
                 console.log(err);
+                alert('SORRY! No User found. Please Sign Up!');
             });
     });
 }
