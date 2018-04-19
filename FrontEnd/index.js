@@ -139,7 +139,7 @@ function main() {
                 window.localStorage.removeItem('sessionKey');
                 window.localStorage.removeItem('username');
                 window.location.replace(
-                    'file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/signup.html'
+                    'file:///home/basecamp/projects/DailyExercises/March/Remade-Java-Final/FrontEnd/login.html'
                 );
             }
         });
